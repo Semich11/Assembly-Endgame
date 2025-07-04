@@ -19,8 +19,12 @@ export default function App() {
     setDice(generateAllNewDice());
   }
 
+  function hold(id){
+    console.log(id)
+  }
+
   const diceElements = dice.map((num) => (
-    <Die key={num.id} diceObj={num} />
+    <Die key={num.id} diceObj={num} onClick={hold} />
   ));
   console.log("Run");
   return (
