@@ -17,6 +17,10 @@ export default function AssemblyEndgame() {
   const [currentWord, setCurrentWord] = useState("react");
   const [guessedLetters, setGuessedLetters] = useState([]);
 
+  const wrongGuessCount = guessedLetters.filter(element => !currentWord.includes(element)).length;
+
+  console.log(wrongGuessCount)
+
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
   const languageElements = languages.map((lang) => {
@@ -44,16 +48,13 @@ export default function AssemblyEndgame() {
         ? prevGuessedLetters
         : [...prevGuessedLetters, letter]
     );
-    console.log("Clicked!!!")
+    
   };
-
-  console.log(guessedLetters);
 
   const keyboardElements = alphabet.split("").map((letter) => {
     const isGuessed = guessedLetters.includes(letter);
     const isCorrect = isGuessed && currentWord.includes(letter);
     const isWrong = isGuessed && !currentWord.includes(letter);
-    console.log(`isGuessed is ${isGuessed} `)
     return (
       <button
       onClick={() => addGuessedletter(letter)}
