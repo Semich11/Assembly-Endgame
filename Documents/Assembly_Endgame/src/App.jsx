@@ -5,12 +5,13 @@ import { languages } from "./languages"
 /**
  * Goal: Add in the incorrect guesses mechanism to the game
  * 
- * Challenge: When mapping over the languages, determine how
- * many of them have been "lost" and add the "lost" class if
- * so.
- * 
- * Hint: use the wrongGuessCount combined with the index of
- * the item in the array while inside the languages.map code
+ * Challenge:
+ * 1. Create a variable `isGameOver` which evaluates to `true`
+ *    if the user has guessed incorrectly 8 times. Consider how
+ *    we might make this more dynamic if we were ever to add or
+ *    remove languages from the languages array.
+ * 2. Conditionally render the New Game button only if the game
+ *    is over.
  */
 
 export default function AssemblyEndgame() {
@@ -20,10 +21,15 @@ export default function AssemblyEndgame() {
     
     // Derived values
     const wrongGuessCount = 
-        guessedLetters.filter(letter => !currentWord.includes(letter)).length
+        guessedLetters.filter(letter => !currentWord.includes(letter)).length;
+    const isGameWon = currentWord.split('').every(letter => guessedLetters.includes(letter));
+
     
     // Static values
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
+    const isGameLost = wrongGuessCount === languages.length - 1;
+    const isGameOver = isGameWon || isGameLost;
+    
 
     function addGuessedLetter(letter) {
         setGuessedLetters(prevLetters =>
